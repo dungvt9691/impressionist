@@ -46,7 +46,7 @@ module ImpressionistController
       query_params.reverse_merge!(
         :controller_name => controller_name,
         :action_name => action_name,
-        :user_id => user_id,
+        :account_id => account_id,
         :request_hash => @impressionist_hash,
         :session_hash => session_hash,
         :ip_address => request.remote_ip,
@@ -58,7 +58,7 @@ module ImpressionistController
     private
 
     def bypass
-      Impressionist::Bots.bot?(request.user_agent)
+      Impressionist::Bots.bot?(request.account_agent)
     end
 
     def should_count_impression?(opts)
@@ -136,11 +136,11 @@ module ImpressionistController
       request.params.except(:controller, :action, :id)
     end
 
-    #use both @current_user and current_user helper
-    def user_id
-      user_id = @current_user ? @current_user.id : nil rescue nil
-      user_id = current_user ? current_user.id : nil rescue nil if user_id.blank?
-      user_id
+    #use both @current_account and current_account helper
+    def account_id
+      account_id = @current_account ? @current_account.id : nil rescue nil
+      account_id = current_account ? current_account.id : nil rescue nil if account_id.blank?
+      account_id
     end
   end
 end
