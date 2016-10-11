@@ -58,7 +58,7 @@ module ImpressionistController
     private
 
     def bypass
-      Impressionist::Bots.bot?(request.account_agent)
+      Impressionist::Bots.bot?(request.user_agent)
     end
 
     def should_count_impression?(opts)
